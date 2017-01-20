@@ -120,7 +120,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the `toy-robot` application, either execute the script and start typing in commands; e.g.
+
+```shell
+    $ bin/app
+
+    REPORT
+    "0,0,NORTH"
+    PLACE 1,2,SOUTH
+    REPORT
+    "1,2,SOUTH"
+    MOVE
+    MOVE
+    RIGHT
+    REPORT
+    "1,0,WEST"
+    EXIT
+```
+
+Or execute the script with the path to file that will be used as input; e.g.
+
+```shell
+    $ bin/app README.md
+
+    "0,1,NORTH"
+    "0,1,NORTH"
+    "0,0,WEST"
+    "3,3,NORTH"
+```
+
+All given User inputs should match what was specified in the Toy Robot
+specification; meaning its case-sensitive, ignores invalid commands, reports
+back to the user when asked `REPORT`, etc. However, it also implements a `EXIT`
+command in order escape the application/script outside of the regular terminate
+command `Ctrl + C`.
 
 ## Development
 
