@@ -56,7 +56,10 @@ module ToyRobot
       end
 
       def test_report_default_value
+        $stdout = StringIO.new
         assert_equal "0,0,NORTH", @subject.report
+      ensure
+        $stdout = STDOUT
       end
     end
 
@@ -178,7 +181,10 @@ module ToyRobot
 
       def test_report_with_new_position_and_facing
         @subject.place(5, 3, "SOUTH")
+        $stdout = StringIO.new
         assert_equal "5,3,SOUTH", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_valid_move_when_valid
