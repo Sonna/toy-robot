@@ -3,6 +3,7 @@ require "toy_robot/point"
 module ToyRobot
   class Robot
     attr_reader :facing
+    attr_reader :input
     attr_reader :position
 
     DIRECTIONS = {
@@ -12,9 +13,11 @@ module ToyRobot
       "WEST" =>  { move: Point.new(-1, 0), left: "SOUTH", right: "NORTH", valid_move?: ->(context) { context.next_move.x >= 0 } }
     }.freeze
 
-    def initialize
+    def initialize(input)
       @facing = "NORTH"
       @position = Point.new(0, 0)
+      @input = input
+      @input.control(self)
     end
 
     def move(*_)

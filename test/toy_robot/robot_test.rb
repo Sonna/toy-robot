@@ -2,17 +2,27 @@ require "test_helper"
 
 module ToyRobot
   class RobotTest < Minitest::Test
+    class FooInput
+      def control(_)
+      end
+    end
+
     def described_class
       Robot
     end
 
     def setup
-      @subject = described_class.new
+      input = FooInput.new
+      @subject = described_class.new(input)
     end
 
     class DescribeMethods < RobotTest
       def test_subject_responds_to_facing
         assert_respond_to(@subject, :facing)
+      end
+
+      def test_subject_responds_to_input
+        assert_respond_to(@subject, :input)
       end
 
       def test_subject_responds_to_position
@@ -46,13 +56,22 @@ module ToyRobot
       def test_subject_responds_to_valid_move?
         assert_respond_to(@subject, :valid_move?)
       end
+    end
 
+    class DescibedRobotInitializedAttributes < RobotTest
       def test_facing_has_default_value
         assert_equal "NORTH", @subject.facing
       end
 
+      def test_input_has_mocked_value
+        input = FooInput.new
+        subject = described_class.new(input)
+
+        assert_equal input, subject.input
+      end
+
       def test_position_has_default_value
-        assert_equal Point.new(0,0), @subject.position
+        assert_equal Point.new(0, 0), @subject.position
       end
 
       def test_report_default_value
