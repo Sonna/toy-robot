@@ -8,10 +8,10 @@ module ToyRobot
     attr_reader :world
 
     DIRECTIONS = {
-      "NORTH" => { move: Point.new( 0, 1), left:  "WEST", right: "EAST",  valid_move?: ->(context, entity) { entity.next_move.y <= context.max } },
-      "SOUTH" => { move: Point.new( 0,-1), left:  "EAST", right: "WEST",  valid_move?: ->(context, entity) { entity.next_move.y >= context.min } },
-      "EAST" =>  { move: Point.new( 1, 0), left: "NORTH", right: "SOUTH", valid_move?: ->(context, entity) { entity.next_move.x <= context.max } },
-      "WEST" =>  { move: Point.new(-1, 0), left: "SOUTH", right: "NORTH", valid_move?: ->(context, entity) { entity.next_move.x >= context.min } }
+      "NORTH" => { move: Point.new( 0, 1), left:  "WEST", right:  "EAST" },
+      "SOUTH" => { move: Point.new( 0,-1), left:  "EAST", right:  "WEST" },
+      "EAST" =>  { move: Point.new( 1, 0), left: "NORTH", right: "SOUTH" },
+      "WEST" =>  { move: Point.new(-1, 0), left: "SOUTH", right: "NORTH" }
     }.freeze
 
     def initialize(world, input)
@@ -50,7 +50,7 @@ module ToyRobot
     end
 
     def valid_move?
-      DIRECTIONS[facing][:valid_move?].call(world, self)
+      world.valid_move?(self)
     end
   end
 end

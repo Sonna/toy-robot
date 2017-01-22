@@ -20,7 +20,7 @@ module ToyRobot
       end
     end
 
-    class DescibedRobotInitializedAttributes < GridTest
+    class DescribedGridInitializedAttributes < GridTest
       def test_min_has_default_value
         assert_equal 0, @subject.min
       end
@@ -37,6 +37,44 @@ module ToyRobot
       def test_set_max_value_on_initialize
         subject = described_class.new(0, 6)
         assert_equal 6, subject.max
+      end
+    end
+
+    class DescribeValidMove < GridTest
+      BarEntity = Struct.new(:next_move)
+      FooPoint = Struct.new(:x, :y)
+
+      def test_valid_move_inside_default_min_max
+        entity = BarEntity.new(FooPoint.new(1, 2))
+        assert @subject.valid_move?(entity)
+      end
+
+      def test_valid_move_inside_new_min_max
+        subject = described_class.new(1, 4)
+        entity = BarEntity.new(FooPoint.new(2, 3))
+        assert subject.valid_move?(entity)
+      end
+
+      def test_valid_move_inside_new_negative_min_max
+        subject = described_class.new(-6, -2)
+        entity = BarEntity.new(FooPoint.new(-3, -4))
+        assert subject.valid_move?(entity)
+      end
+
+      def test_valid_move_is_false_outside_default_max
+        entity = BarEntity.new(FooPoint.new(6, 6))
+        assert !@subject.valid_move?(entity)
+      end
+
+      def test_valid_move_is_false_outside_default_min
+        entity = BarEntity.new(FooPoint.new(-1, 0))
+        assert !@subject.valid_move?(entity)
+      end
+
+      def test_valid_move_is_false_outside_new_min
+        subject = described_class.new(-2, 2)
+        entity = BarEntity.new(FooPoint.new(-4, 1))
+        assert !subject.valid_move?(entity)
       end
     end
   end
