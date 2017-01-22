@@ -5,7 +5,8 @@ module ToyRobot
     end
 
     def initialize(filename = nil)
-      @input = filename ? FileInput.new(filename) : PlayerInput.new
+      @input =
+        filename ? Input::FileInput.new(filename) : Input::PlayerInput.new
       Robot.new(input)
     end
 
