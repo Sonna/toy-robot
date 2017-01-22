@@ -1,8 +1,9 @@
+require "toy_robot/compass"
 require "toy_robot/vector2d"
 
 module ToyRobot
   class Robot
-    attr_reader :facing
+    # attr_reader :facing
     attr_reader :input
     attr_reader :position
     attr_reader :world
@@ -17,6 +18,8 @@ module ToyRobot
     NORTH  = Vector2D.up.freeze
     ORIGIN = Vector2D.zero.freeze
 
+    TempTransform = Struct.new(:position, :target)
+
     def initialize(world, input)
       @facing = "NORTH" # NORTH
       @position = ORIGIN
@@ -26,12 +29,17 @@ module ToyRobot
       @input.control(self)
     end
 
+    def facing
+      transform = TempTransform.new(position, next_move)
+      Compass.new(transform).heading
+    end
+
     def move(*_)
       @position = next_move if valid_move?
     end
 
     def next_move
-      @position + DIRECTIONS[facing][:move]
+      @position + DIRECTIONS[@facing][:move]
     end
 
     def left(*_)
