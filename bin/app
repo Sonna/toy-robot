@@ -3,38 +3,4 @@
 require "bundler/setup"
 require "toy_robot"
 
-# == Example input
-#
-# PLACE X,Y,F
-# MOVE
-# LEFT
-# RIGHT
-# REPORT
-
-COMMANDS = {
-  "PLACE" => :place,
-  "MOVE" => :move,
-  "LEFT" => :left,
-  "RIGHT" => :right,
-  "REPORT" => :report
-}
-
-SEPARATORS_REGEX = %r{[ |,\s*]}
-
-robot = ToyRobot::Robot.new
-filename = ARGV.first
-
-if !filename
-  loop do
-    input, *args = $stdin.gets.chomp.split(SEPARATORS_REGEX)
-    command = COMMANDS[input]
-    robot.method(command).call(*args) if command
-    break if input == "EXIT"
-  end
-else
-  File.readlines(filename).each do |line|
-    input, *args = line.strip.split(SEPARATORS_REGEX)
-    command = COMMANDS[input]
-    robot.method(command).call(*args) if command
-  end
-end
+ToyRobot::App.run(ARGV.first)

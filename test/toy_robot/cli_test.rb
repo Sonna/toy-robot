@@ -41,45 +41,5 @@ module ToyRobot
 
       assert expected_output, actual_output
     end
-
-    class CLI
-      COMMANDS = {
-        "PLACE" => :place,
-        "MOVE" => :move,
-        "LEFT" => :left,
-        "RIGHT" => :right,
-        "REPORT" => :report
-      }
-
-      SEPARATORS_REGEX = %r{[ |,\s*]}
-
-      def self.run
-        robot = ToyRobot::Robot.new
-        loop do
-          # input, *args = $stdin.gets.chomp.split(SEPARATORS_REGEX)
-          input, *args = gets.chomp.split(SEPARATORS_REGEX)
-          command = COMMANDS[input]
-          robot.method(command).call(*args) if command
-          break if input == "EXIT"
-        end
-      end
-    end
-
-    def test_bin_app_console
-      stdout_output = local_io("MOVE\nREPORT\nEXIT") { CLI.run }
-      assert_equal %("0,1,NORTH"\n), stdout_output
-    end
-
-    private
-
-    def local_io(in_str)
-      old_stdin, old_stdout = $stdin, $stdout
-      $stdin = StringIO.new(in_str)
-      $stdout = StringIO.new
-      yield
-      $stdout.string
-    ensure
-      $stdin, $stdout = old_stdin, old_stdout
-    end
   end
 end
