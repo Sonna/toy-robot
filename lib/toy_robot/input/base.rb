@@ -18,7 +18,7 @@ module ToyRobot
         "REPORT" => :report
       }.freeze
 
-      SEPARATORS_REGEX = %r{[ |,\s*]}.freeze
+      SEPARATORS_REGEX = /[,\s]/.freeze
 
       def control(entity)
         @entity = entity
