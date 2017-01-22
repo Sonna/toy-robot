@@ -7,7 +7,8 @@ module ToyRobot
     def initialize(filename = nil)
       @input =
         filename ? Input::FileInput.new(filename) : Input::PlayerInput.new
-      Robot.new(input)
+      table = Grid.new
+      Robot.new(table, input)
     end
 
     def run

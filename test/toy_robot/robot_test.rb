@@ -2,6 +2,15 @@ require "test_helper"
 
 module ToyRobot
   class RobotTest < Minitest::Test
+    FooGrid = Struct.new(:min, :max) do
+      def valid_move?(entity)
+        entity.next_move.x >= min &&
+          entity.next_move.y >= min &&
+          entity.next_move.x <= max &&
+          entity.next_move.y <= max
+      end
+    end
+
     class FooInput
       def control(_)
       end
@@ -13,7 +22,8 @@ module ToyRobot
 
     def setup
       input = FooInput.new
-      @subject = described_class.new(input)
+      world = FooGrid.new(0, 5)
+      @subject = described_class.new(world, input)
     end
 
     class DescribeMethods < RobotTest
@@ -58,14 +68,15 @@ module ToyRobot
       end
     end
 
-    class DescibedRobotInitializedAttributes < RobotTest
+    class DescribedRobotInitializedAttributes < RobotTest
       def test_facing_has_default_value
         assert_equal "NORTH", @subject.facing
       end
 
       def test_input_has_mocked_value
         input = FooInput.new
-        subject = described_class.new(input)
+        world = FooGrid.new(0, 0)
+        subject = described_class.new(world, input)
 
         assert_equal input, subject.input
       end
@@ -172,12 +183,12 @@ module ToyRobot
       #
       # But does not mentioned that a PLACE command can be invalid or should
       # warn the user if it is invalid
-      # def test_invalid_placed_robot_does_not_move
-      #   @subject.place(-1, -1, "NORTH")
-      #   @subject.move
-      #   expected_position = Point.new(-1, -1)
-      #   assert_equal expected_position, @subject.position
-      # end
+      def test_invalid_placed_robot_does_not_move
+        @subject.place(-1, -1, "NORTH")
+        @subject.move
+        expected_position = Point.new(-1, -1)
+        assert_equal expected_position, @subject.position
+      end
 
       # def test_invalid_placed_robot_does_not_move_with_invalid_facing_direction
       #   @subject.place(0, 0, "NORTH-EAST")
