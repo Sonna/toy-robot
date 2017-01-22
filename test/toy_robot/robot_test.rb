@@ -82,7 +82,7 @@ module ToyRobot
       end
 
       def test_position_has_default_value
-        assert_equal Point.new(0, 0), @subject.position
+        assert_equal Vector2D.new(0, 0), @subject.position
       end
 
       def test_report_default_value
@@ -96,25 +96,25 @@ module ToyRobot
     class DescribeRobotCommandMethods < RobotTest
       def test_move
         @subject.move
-        expected_position = Point.new(0, 1)
+        expected_position = Vector2D.new(0, 1)
 
         assert_equal expected_position, @subject.position
       end
 
       def test_move_multiple_times
         3.times.each { @subject.move }
-        expected_position = Point.new(0, 3)
+        expected_position = Vector2D.new(0, 3)
 
         assert_equal expected_position, @subject.position
       end
 
       def test_next_moves
-        assert_equal Point.new(0, 1), @subject.next_move
+        assert_equal Vector2D.new(0, 1), @subject.next_move
       end
 
       def test_next_move_does_not_move_robot
         @subject.next_move
-        expected_position = Point.new(0, 0)
+        expected_position = Vector2D.new(0, 0)
 
         assert_equal expected_position, @subject.position
       end
@@ -161,19 +161,19 @@ module ToyRobot
 
       def test_place
         @subject.place(0, 0, "NORTH")
-        expected_position = Point.new(0, 0)
+        expected_position = Vector2D.new(0, 0)
         assert_equal expected_position, @subject.position
       end
 
       def test_place_new_position
         @subject.place(1, 1, "NORTH")
-        expected_position = Point.new(1, 1)
+        expected_position = Vector2D.new(1, 1)
         assert_equal expected_position, @subject.position
       end
 
       def test_place_invalid_position
         @subject.place(-1, -1, "NORTH")
-        expected_position = Point.new(-1, -1)
+        expected_position = Vector2D.new(-1, -1)
         assert_equal expected_position, @subject.position
       end
 
@@ -186,14 +186,14 @@ module ToyRobot
       def test_invalid_placed_robot_does_not_move
         @subject.place(-1, -1, "NORTH")
         @subject.move
-        expected_position = Point.new(-1, -1)
+        expected_position = Vector2D.new(-1, -1)
         assert_equal expected_position, @subject.position
       end
 
       # def test_invalid_placed_robot_does_not_move_with_invalid_facing_direction
       #   @subject.place(0, 0, "NORTH-EAST")
       #   @subject.move
-      #   expected_position = Point.new(0, 0)
+      #   expected_position = Vector2D.new(0, 0)
       #   assert_equal expected_position, @subject.position
       # end
 

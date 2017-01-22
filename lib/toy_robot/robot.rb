@@ -1,4 +1,4 @@
-require "toy_robot/point"
+require "toy_robot/vector2d"
 
 module ToyRobot
   class Robot
@@ -8,15 +8,18 @@ module ToyRobot
     attr_reader :world
 
     DIRECTIONS = {
-      "NORTH" => { move: Point.new( 0, 1), left:  "WEST", right:  "EAST" },
-      "SOUTH" => { move: Point.new( 0,-1), left:  "EAST", right:  "WEST" },
-      "EAST" =>  { move: Point.new( 1, 0), left: "NORTH", right: "SOUTH" },
-      "WEST" =>  { move: Point.new(-1, 0), left: "SOUTH", right: "NORTH" }
+      "NORTH" => { move: Vector2D.up,    left:  "WEST", right:  "EAST" },
+      "SOUTH" => { move: Vector2D.down,  left:  "EAST", right:  "WEST" },
+      "EAST"  => { move: Vector2D.right, left: "NORTH", right: "SOUTH" },
+      "WEST"  => { move: Vector2D.left,  left: "SOUTH", right: "NORTH" }
     }.freeze
 
+    NORTH  = Vector2D.up.freeze
+    ORIGIN = Vector2D.zero.freeze
+
     def initialize(world, input)
-      @facing = "NORTH"
-      @position = Point.new(0, 0)
+      @facing = "NORTH" # NORTH
+      @position = ORIGIN
 
       @world = world
       @input = input
@@ -41,7 +44,7 @@ module ToyRobot
 
     def place(x, y, facing)
       return unless DIRECTIONS.keys.include?(facing)
-      @position = Point.new(x, y)
+      @position = Vector2D.new(x, y)
       @facing = facing
     end
 
