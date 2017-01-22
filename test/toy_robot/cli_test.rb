@@ -43,25 +43,11 @@ module ToyRobot
     end
 
     class CLI
-      COMMANDS = {
-        "PLACE" => :place,
-        "MOVE" => :move,
-        "LEFT" => :left,
-        "RIGHT" => :right,
-        "REPORT" => :report
-      }
+      def self.run(filename = nil)
+        input = filename ? FileInput.new(filename) : PlayerInput.new
+        Robot.new(input)
 
-      SEPARATORS_REGEX = %r{[ |,\s*]}
-
-      def self.run
-        robot = ToyRobot::Robot.new
-        loop do
-          # input, *args = $stdin.gets.chomp.split(SEPARATORS_REGEX)
-          input, *args = gets.chomp.split(SEPARATORS_REGEX)
-          command = COMMANDS[input]
-          robot.method(command).call(*args) if command
-          break if input == "EXIT"
-        end
+        loop { break if input.update == "EXIT" }
       end
     end
 

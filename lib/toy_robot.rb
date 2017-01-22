@@ -1,3 +1,4 @@
+require "toy_robot/input"
 require "toy_robot/robot"
 require "toy_robot/version"
 
