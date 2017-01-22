@@ -2,6 +2,8 @@ require "test_helper"
 
 module ToyRobot
   class RobotTest < Minitest::Test
+    FooGrid = Struct.new(:min, :max)
+
     class FooInput
       def control(_)
       end
@@ -13,7 +15,8 @@ module ToyRobot
 
     def setup
       input = FooInput.new
-      @subject = described_class.new(input)
+      world = FooGrid.new(0, 5)
+      @subject = described_class.new(world, input)
     end
 
     class DescribeMethods < RobotTest
@@ -65,7 +68,8 @@ module ToyRobot
 
       def test_input_has_mocked_value
         input = FooInput.new
-        subject = described_class.new(input)
+        world = FooGrid.new(0, 0)
+        subject = described_class.new(world, input)
 
         assert_equal input, subject.input
       end
