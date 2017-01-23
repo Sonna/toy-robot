@@ -1,28 +1,31 @@
 require "toy_robot/compass"
+require "toy_robot/transform"
 require "toy_robot/vector2d"
 
 module ToyRobot
   class Robot
-    # attr_reader :facing
+    extend Forwardable
+    def_delegators :@transform, :position
+
     attr_reader :input
-    attr_reader :position
+    attr_reader :transform
     attr_reader :world
 
+    ANTI_CLOCKWISE = 90.freeze # degrees
+    CLOCKWISE = -90.freeze # degrees
+
     DIRECTIONS = {
-      "NORTH" => { move: Vector2D.up,    left:  "WEST", right:  "EAST" },
-      "SOUTH" => { move: Vector2D.down,  left:  "EAST", right:  "WEST" },
-      "EAST"  => { move: Vector2D.right, left: "NORTH", right: "SOUTH" },
-      "WEST"  => { move: Vector2D.left,  left: "SOUTH", right: "NORTH" }
+      "NORTH" => Vector2D.up,
+      "SOUTH" => Vector2D.down,
+      "EAST"  => Vector2D.right,
+      "WEST"  => Vector2D.left
     }.freeze
 
     NORTH  = Vector2D.up.freeze
     ORIGIN = Vector2D.zero.freeze
 
-    TempTransform = Struct.new(:position, :target)
-
     def initialize(world, input)
-      @facing = "NORTH" # NORTH
-      @position = ORIGIN
+      @transform = Transform.new(ORIGIN, NORTH)
 
       @world = world
       @input = input
@@ -30,34 +33,40 @@ module ToyRobot
     end
 
     def facing
-      transform = TempTransform.new(position, next_move)
       Compass.new(transform).heading
     end
 
     def move(*_)
-      @position = next_move if valid_move?
+      @transform = next_move if valid_move?
     end
 
     def next_move
-      @position + DIRECTIONS[@facing][:move]
+      # next_transform = transform.dup
+      # next_transform.translate(DIRECTIONS[facing])
+      @transform.translate(DIRECTIONS[facing])
     end
 
+    # def position
+    #   @transform.position
+    # end
+
     def left(*_)
-      @facing = DIRECTIONS[facing][:left]
+      @transform = transform.rotate(ANTI_CLOCKWISE)
     end
 
     def right(*_)
-      @facing = DIRECTIONS[facing][:right]
+      @transform = transform.rotate(CLOCKWISE)
     end
 
-    def place(x, y, facing)
-      return unless DIRECTIONS.keys.include?(facing)
-      @position = Vector2D.new(x, y)
-      @facing = facing
+    def place(x, y, facing_key)
+      return unless DIRECTIONS.keys.include?(facing_key)
+      position = Vector2D.new(x, y)
+      target = position + DIRECTIONS[facing_key]
+      @transform = Transform.new(position, target)
     end
 
     def report
-      p "#{position},#{facing}"
+      p "#{transform.position},#{facing}"
     end
 
     def valid_move?
