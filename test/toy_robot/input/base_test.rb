@@ -46,14 +46,9 @@ module ToyRobot
         end
 
         class FooEntity
-          def command(*_)
-            true
+          def process(input, *_)
+            %w(PLACE MOVE LEFT RIGHT REPORT).include?(input)
           end
-          alias_method :place, :command
-          alias_method :move, :command
-          alias_method :left, :command
-          alias_method :right, :command
-          alias_method :report, :command
         end
 
         def setup

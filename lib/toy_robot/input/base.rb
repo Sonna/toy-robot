@@ -10,13 +10,6 @@ module ToyRobot
       # LEFT
       # RIGHT
       # REPORT
-      COMMANDS = {
-        "PLACE" => :place,
-        "MOVE" => :move,
-        "LEFT" => :left,
-        "RIGHT" => :right,
-        "REPORT" => :report
-      }.freeze
 
       SEPARATORS_REGEX = /[,\s]/.freeze
 
@@ -26,8 +19,7 @@ module ToyRobot
 
       def update
         input, *args = source.chomp.strip.split(SEPARATORS_REGEX)
-        command = COMMANDS[input]
-        entity.method(command).call(*args) if command
+        entity.process(input, *args)
         input
       end
 
