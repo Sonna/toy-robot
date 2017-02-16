@@ -11,7 +11,7 @@ module ToyRobot
       # RIGHT
       # REPORT
 
-      SEPARATORS_REGEX = /[,\s]/.freeze
+      SEPARATORS_REGEX = /[,\s]/
 
       def control(entity)
         @entity = entity
