@@ -3,7 +3,7 @@ require "test_helper"
 module ToyRobot
   module Input
     class PlayerInputTest < Minitest::Test
-      COMMANDS_STRING_IO = <<-COMMANDS
+      COMMANDS_STRING_IO = <<-COMMANDS.freeze
         PLACE 4,2,EAST
         RIGHT
         REPORT
