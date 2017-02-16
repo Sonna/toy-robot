@@ -14,9 +14,13 @@ module ToyRobot
       @target = target || position + Vector2D.up
     end
 
+    def ==(other)
+      position == other.position && target == other.target
+    end
+
     def +(other)
-      new_position = @position + other.position
-      new_target = @target + other.target
+      new_position = position + other.position
+      new_target = target + other.target
 
       self.class.new(new_position, new_target)
     end
