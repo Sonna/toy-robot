@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
     positions within Melbourne. It should demonstrate good coding practices,
     some coding patterns and overall my relevant skill as a developer.
   }
-  spec.homepage      = "https://github.com/sonna/toy-robot"
+  spec.homepage = "https://github.com/sonna/toy-robot"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
