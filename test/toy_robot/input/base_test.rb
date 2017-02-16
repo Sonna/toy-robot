@@ -27,7 +27,7 @@ module ToyRobot
 
       class DescribeSubClass < BaseTest
         class FooInput < Base
-          COMMANDS_STRING_IO = <<-COMMANDS
+          COMMANDS_STRING_IO = <<-COMMANDS.freeze
             PLACE 1,2,SOUTH
             MOVE
             LEFT
