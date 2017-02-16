@@ -1,0 +1,6 @@
+Style/Documentation:
+  Exclude:
+  - "**/*.rb"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
