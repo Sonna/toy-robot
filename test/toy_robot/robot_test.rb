@@ -3,12 +3,14 @@ require "test_helper"
 module ToyRobot
   class RobotTest < Minitest::Test
     FooGrid = Struct.new(:min, :max) do
+      # rubocop:disable Metrics/AbcSize
       def valid_move?(entity)
         entity.next_move.x >= min &&
           entity.next_move.y >= min &&
           entity.next_move.x <= max &&
           entity.next_move.y <= max
       end
+      # rubocop:enable Metrics/AbcSize
     end
 
     class FooInput
