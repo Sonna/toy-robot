@@ -23,26 +23,6 @@ module ToyRobot
       @input.control(self)
     end
 
-    def move(*_)
-      process("MOVE", *_)
-    end
-
-    def left(*_)
-      process("LEFT", *_)
-    end
-
-    def right(*_)
-      process("RIGHT", *_)
-    end
-
-    def place(x, y, facing)
-      process("PLACE", x, y, facing)
-    end
-
-    def report
-      process("REPORT")
-    end
-
     def commands
       place = PlaceCommand.new(self)
       move = MoveCommand.new(self)
