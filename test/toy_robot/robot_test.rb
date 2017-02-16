@@ -27,10 +27,6 @@ module ToyRobot
     end
 
     class DescribeMethods < RobotTest
-      def test_subject_responds_to_facing
-        assert_respond_to(@subject, :facing)
-      end
-
       def test_subject_responds_to_input
         assert_respond_to(@subject, :input)
       end
@@ -41,10 +37,6 @@ module ToyRobot
 
       def test_subject_responds_to_move
         assert_respond_to(@subject, :move)
-      end
-
-      def test_subject_responds_to_next_move
-        assert_respond_to(@subject, :next_move)
       end
 
       def test_subject_responds_to_left
@@ -62,17 +54,9 @@ module ToyRobot
       def test_subject_responds_to_report
         assert_respond_to(@subject, :report)
       end
-
-      def test_subject_responds_to_valid_move?
-        assert_respond_to(@subject, :valid_move?)
-      end
     end
 
     class DescribedRobotInitializedAttributes < RobotTest
-      def test_facing_has_default_value
-        assert_equal "NORTH", @subject.facing
-      end
-
       def test_input_has_mocked_value
         input = FooInput.new
         world = FooGrid.new(0, 0)
@@ -108,55 +92,68 @@ module ToyRobot
         assert_equal expected_position, @subject.position
       end
 
-      def test_next_moves
-        assert_equal Vector2D.new(0, 1), @subject.next_move
-      end
-
-      def test_next_move_does_not_move_robot
-        @subject.next_move
-        expected_position = Vector2D.new(0, 0)
-
-        assert_equal expected_position, @subject.position
-      end
-
       def test_left
+        $stdout = StringIO.new
         @subject.left
-        assert_equal "WEST", @subject.facing
+        assert_equal "0,0,WEST", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_left_twice_faces_south
+        $stdout = StringIO.new
         2.times.each { @subject.left }
-        assert_equal "SOUTH", @subject.facing
+        assert_equal "0,0,SOUTH", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_left_three_times_faces_east
+        $stdout = StringIO.new
         3.times.each { @subject.left }
-        assert_equal "EAST", @subject.facing
+        assert_equal "0,0,EAST", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_left_four_times_faces_north
+        $stdout = StringIO.new
         4.times.each { @subject.left }
-        assert_equal "NORTH", @subject.facing
+        assert_equal "0,0,NORTH", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_right
+        $stdout = StringIO.new
         @subject.right
-        assert_equal "EAST", @subject.facing
+        assert_equal "0,0,EAST", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_right_twice_faces_south
+        $stdout = StringIO.new
         2.times.each { @subject.right }
-        assert_equal "SOUTH", @subject.facing
+        assert_equal "0,0,SOUTH", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_right_three_times_faces_west
+        $stdout = StringIO.new
         3.times.each { @subject.right }
-        assert_equal "WEST", @subject.facing
+        assert_equal "0,0,WEST", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_right_four_times_faces_north
+        $stdout = StringIO.new
         4.times.each { @subject.right }
-        assert_equal "NORTH", @subject.facing
+        assert_equal "0,0,NORTH", @subject.report
+      ensure
+        $stdout = STDOUT
       end
 
       def test_place
@@ -215,20 +212,6 @@ module ToyRobot
         assert_equal "5,3,SOUTH", @subject.report
       ensure
         $stdout = STDOUT
-      end
-
-      def test_valid_move_when_valid
-        assert @subject.valid_move?
-      end
-
-      def test_valid_move_when_valid_from_new_position
-        @subject.place(4, 2, "EAST")
-        assert @subject.valid_move?
-      end
-
-      def test_valid_move_when_invalid
-        @subject.place(3, 5, "NORTH")
-        assert !@subject.valid_move?
       end
     end
   end
