@@ -11,10 +11,7 @@ module ToyRobot
     end
 
     def valid_move?(entity)
-      entity.next_move.x >= min &&   # :east
-        entity.next_move.x <= max && # :west
-        entity.next_move.y >= min && # :north
-        entity.next_move.y <= max    # :south
+      (min...max) === entity.next_move.x && (min...max) === entity.next_move.y
     end
   end
 end
