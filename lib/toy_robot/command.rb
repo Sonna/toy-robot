@@ -25,7 +25,7 @@ module ToyRobot
     end
   end
 
-  class PlaceCommand < Command
+  module Directions
     DIRECTIONS = {
       "NORTH" => Vector2D.up.freeze,
       "SOUTH" => Vector2D.down.freeze,
@@ -33,10 +33,22 @@ module ToyRobot
       "WEST"  => Vector2D.left.freeze
     }.freeze
 
+    def self.[](key)
+      DIRECTIONS[key]
+    end
+
+    def self.keys
+      DIRECTIONS.keys
+    end
+  end
+
+  class PlaceCommand < Command
+    # include Directions
+
     def execute(x, y, facing)
-      return unless DIRECTIONS.keys.include?(facing)
+      return unless Directions.keys.include?(facing)
       position = Vector2D.new(x, y)
-      direction = position + DIRECTIONS[facing]
+      direction = position + Directions[facing]
       entity.transform = Transform.new(position, direction)
     end
 
@@ -47,20 +59,15 @@ module ToyRobot
   end
 
   class MoveCommand < Command
-    DIRECTIONS = {
-      "NORTH" => Vector2D.up.freeze,
-      "SOUTH" => Vector2D.down.freeze,
-      "EAST"  => Vector2D.right.freeze,
-      "WEST"  => Vector2D.left.freeze
-    }.freeze
+    # include Directions
 
     def execute(*_)
-      entity.transform.translate(DIRECTIONS[facing]) if valid_move?
+      entity.transform.translate(Directions[facing]) if valid_move?
     end
 
     def next_move
       new_transform = entity.transform.dup
-      new_transform.translate(DIRECTIONS[facing])
+      new_transform.translate(Directions[facing])
     end
 
     # def specified_input
