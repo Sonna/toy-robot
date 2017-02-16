@@ -166,6 +166,10 @@ module ToyRobot
         assert !@subject.match?("PLACE")
       end
 
+      def test_facing_has_default_value
+        assert_equal "NORTH", @subject.send(:facing)
+      end
+
       def test_execute_report_command
         $stdout = StringIO.new
         assert_equal "0,0,NORTH", @subject.execute

@@ -1,25 +1,16 @@
+require "toy_robot/command"
 require "toy_robot/compass"
 require "toy_robot/transform"
-require "toy_robot/vector2d"
 
 module ToyRobot
   class Robot
     extend Forwardable
     def_delegators :@transform, :position
 
+    attr_accessor :transform
+
     attr_reader :input
-    attr_reader :transform
     attr_reader :world
-
-    ANTI_CLOCKWISE = 90.freeze # degrees
-    CLOCKWISE = -90.freeze # degrees
-
-    DIRECTIONS = {
-      "NORTH" => Vector2D.up,
-      "SOUTH" => Vector2D.down,
-      "EAST"  => Vector2D.right,
-      "WEST"  => Vector2D.left
-    }.freeze
 
     NORTH  = Vector2D.up.freeze
     ORIGIN = Vector2D.zero.freeze
@@ -32,44 +23,44 @@ module ToyRobot
       @input.control(self)
     end
 
-    def facing
-      Compass.new(transform).heading
-    end
-
     def move(*_)
-      @transform = next_move if valid_move?
+      process("MOVE", *_)
     end
-
-    def next_move
-      next_transform = transform.dup
-      next_transform.translate(DIRECTIONS[facing])
-    end
-
-    # def position
-    #   @transform.position
-    # end
 
     def left(*_)
-      @transform = transform.rotate(ANTI_CLOCKWISE)
+      process("LEFT", *_)
     end
 
     def right(*_)
-      @transform = transform.rotate(CLOCKWISE)
+      process("RIGHT", *_)
     end
 
-    def place(x, y, facing_key)
-      return unless DIRECTIONS.keys.include?(facing_key)
-      position = Vector2D.new(x, y)
-      target = position + DIRECTIONS[facing_key]
-      @transform = Transform.new(position, target)
+    def place(x, y, facing)
+      process("PLACE", x, y, facing)
     end
 
     def report
-      p "#{transform.position},#{facing}"
+      process("REPORT")
     end
 
-    def valid_move?
-      world.valid_move?(self)
+    def commands
+      place = PlaceCommand.new(self)
+      move = MoveCommand.new(self)
+      left = LeftCommand.new(self)
+      right = RightCommand.new(self)
+      report = ReportCommand.new(self)
+
+      no_action = NoActionCommand.new(self)
+
+      [place, move, left, right, report, no_action]
+    end
+
+    def command_for_input(input)
+      commands.find { |command| command.match?(input) }
+    end
+
+    def process(input, *args)
+      command_for_input(input).execute(*args)
     end
   end
 end
