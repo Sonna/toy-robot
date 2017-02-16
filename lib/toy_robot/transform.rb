@@ -45,7 +45,7 @@ module ToyRobot
       cos = Math.cos(theta)
 
       # translate point back to origin
-      translated_point = target - position;
+      translated_point = target - position
 
       # rotate point
       x = translated_point.x * cos - translated_point.y * sin
