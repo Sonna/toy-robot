@@ -201,25 +201,6 @@ module ToyRobot
         assert_equal expected_position, @subject.position
       end
 
-      # def test_invalid_placed_robot_does_not_move_with_invalid_facing_direction
-      #   @subject.process("PLACE", 0, 0, "NORTH-EAST")
-      #   @subject.process("MOVE")
-      #   expected_position = Vector2D.new(0, 0)
-      #   assert_equal expected_position, @subject.position
-      # end
-
-      # def test_invalid_placed_robot_does_not_turn_left
-      #   @subject.process("PLACE", -1, -1, "NORTH")
-      #   @subject.process("LEFT")
-      #   assert_equal "NORTH", @subject.facing
-      # end
-
-      # def test_invalid_placed_robot_does_not_turn_right
-      #   @subject.process("PLACE", -1, -1, "NORTH")
-      #   @subject.process("RIGHT")
-      #   assert_equal "NORTH", @subject.facing
-      # end
-
       def test_report_with_new_position_and_facing
         @subject.process("PLACE", 5, 3, "SOUTH")
         $stdout = StringIO.new
