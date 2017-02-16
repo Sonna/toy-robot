@@ -14,13 +14,15 @@ module ToyRobot
     private
 
     def local_io(in_str)
-      old_stdin, old_stdout = $stdin, $stdout
+      old_stdin = $stdin
+      old_stdout = $stdout
       $stdin = StringIO.new(in_str)
       $stdout = StringIO.new
       yield
       $stdout.string
     ensure
-      $stdin, $stdout = old_stdin, old_stdout
+      $stdin = old_stdin
+      $stdout = old_stdout
     end
   end
 end
