@@ -12,8 +12,7 @@ module ToyRobot
     end
 
     class FooInput
-      def control(_)
-      end
+      def control(_); end
     end
 
     def described_class
