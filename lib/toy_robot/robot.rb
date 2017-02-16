@@ -23,13 +23,13 @@ module ToyRobot
     end
 
     def commands
-      place = PlaceCommand.new(self)
-      move = MoveCommand.new(self)
-      left = LeftCommand.new(self)
-      right = RightCommand.new(self)
-      report = ReportCommand.new(self)
+      place = Command::PlaceCommand.new(self)
+      move = Command::MoveCommand.new(self)
+      left = Command::LeftCommand.new(self)
+      right = Command::RightCommand.new(self)
+      report = Command::ReportCommand.new(self)
 
-      no_action = NoActionCommand.new(self)
+      no_action = Command::NoActionCommand.new(self)
 
       [place, move, left, right, report, no_action]
     end
