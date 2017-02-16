@@ -76,6 +76,30 @@ module ToyRobot
         entity = BarEntity.new(FooPoint.new(-4, 1))
         assert !subject.valid_move?(entity)
       end
+
+      def test_valid_move_is_valid_inside_default_max_x
+        subject = described_class.new(0, 5)
+        entity = BarEntity.new(FooPoint.new(5, 2))
+        assert subject.valid_move?(entity)
+      end
+
+      def test_valid_move_is_invalid_outside_default_max_x
+        subject = described_class.new(0, 5)
+        entity = BarEntity.new(FooPoint.new(6, 2))
+        assert !subject.valid_move?(entity)
+      end
+
+      def test_valid_move_is_valid_inside_default_max_y
+        subject = described_class.new(0, 5)
+        entity = BarEntity.new(FooPoint.new(2, 5))
+        assert subject.valid_move?(entity)
+      end
+
+      def test_valid_move_is_invalid_outside_default_max_y
+        subject = described_class.new(0, 5)
+        entity = BarEntity.new(FooPoint.new(2, 6))
+        assert !subject.valid_move?(entity)
+      end
     end
   end
 end
