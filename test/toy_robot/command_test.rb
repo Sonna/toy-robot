@@ -4,7 +4,8 @@ module ToyRobot
   class CommandTest < Minitest::Test
     BarGrid = Struct.new(:min, :max) do
       def valid_move?(entity)
-        (min...max) === entity.next_move.x && (min...max) === entity.next_move.y
+        (min...max).cover?(entity.next_move.x) &&
+          (min...max).cover?(entity.next_move.y)
       end
     end
 
