@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alex Sonneveld"]
   spec.email         = ["Alex.Sonneveld@live.com.au"]
 
-  spec.summary       = 'An implementation of the Toy Robot specification coding test'
+  spec.summary       = "An implementation of the Toy Robot specification coding test"
   spec.description   = '
     This is a personal attempt at implementing the Toy Robot specification brief
     as a part of expected coding tests in the future for Ruby Developer
