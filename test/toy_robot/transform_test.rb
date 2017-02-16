@@ -47,6 +47,7 @@ module ToyRobot
     end
 
     class DescribeMethods < TransformTest
+      # rubocop:disable Metrics/AbcSize
       def test_plus_operator
         transform1 = described_class.new(Vector2D.new(0, 1), Vector2D.new(0, 2))
         transform2 = described_class.new(Vector2D.new(1, 0), Vector2D.new(0, 1))
@@ -59,6 +60,7 @@ module ToyRobot
         assert_equal expected_position, new_transform.position
         assert_equal expected_target, new_transform.target
       end
+      # rubocop:enable Metrics/AbcSize
 
       def test_translate
         translation = Vector2D.new(0, 5)
