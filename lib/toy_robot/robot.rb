@@ -1,5 +1,4 @@
 require "toy_robot/command"
-require "toy_robot/compass"
 require "toy_robot/transform"
 
 module ToyRobot
