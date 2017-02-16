@@ -41,9 +41,8 @@ module ToyRobot
     end
 
     def next_move
-      # next_transform = transform.dup
-      # next_transform.translate(DIRECTIONS[facing])
-      @transform.translate(DIRECTIONS[facing])
+      next_transform = transform.dup
+      next_transform.translate(DIRECTIONS[facing])
     end
 
     # def position
