@@ -4,24 +4,17 @@ require "toy_robot/vector2d"
 module ToyRobot
   class Command
     attr_reader :entity
-    # attr_reader :specified_input, :specified_output
 
-    # def initialize(entity, specified_input, specified_output)
     def initialize(entity)
       @entity = entity
-      # @specified_input = specified_input
-      # @specified_output = specified_output
     end
 
     def match?(input)
       # does nothing
-      # input == specified_input
     end
 
     def execute(*_)
       # does nothing
-      # specified_output
-      # # entity.method(specified_input).call
     end
   end
 
@@ -43,8 +36,6 @@ module ToyRobot
   end
 
   class PlaceCommand < Command
-    # include Directions
-
     def execute(x, y, facing)
       return unless Directions.keys.include?(facing)
       position = Vector2D.new(x, y)
@@ -52,15 +43,12 @@ module ToyRobot
       entity.transform = Transform.new(position, direction)
     end
 
-    # def specified_input
     def match?(input)
       input == "PLACE"
     end
   end
 
   class MoveCommand < Command
-    # include Directions
-
     def execute(*_)
       entity.transform.translate(Directions[facing]) if valid_move?
     end
@@ -70,7 +58,6 @@ module ToyRobot
       new_transform.translate(Directions[facing])
     end
 
-    # def specified_input
     def match?(input)
       input == "MOVE"
     end
@@ -93,7 +80,6 @@ module ToyRobot
       entity.transform.rotate(ANTI_CLOCKWISE)
     end
 
-    # def specified_input
     def match?(input)
       input == "LEFT"
     end
@@ -106,7 +92,6 @@ module ToyRobot
       entity.transform.rotate(CLOCKWISE)
     end
 
-    # def specified_input
     def match?(input)
       input == "RIGHT"
     end
@@ -117,7 +102,6 @@ module ToyRobot
       p "#{entity.transform.position},#{facing}"
     end
 
-    # def specified_input
     def match?(input)
       input == "REPORT"
     end
