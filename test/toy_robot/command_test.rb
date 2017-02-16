@@ -23,7 +23,7 @@ module ToyRobot
     end
 
     def described_class
-      Command
+      Command::Base
     end
 
     def setup
@@ -42,7 +42,7 @@ module ToyRobot
 
     class DescribePlaceCommand < CommandTest
       def described_class
-        PlaceCommand
+        Command::PlaceCommand
       end
 
       def test_match_is_true_when_input_is_PLACE
@@ -66,7 +66,7 @@ module ToyRobot
 
     class DescribeMoveCommand < CommandTest
       def described_class
-        MoveCommand
+        Command::MoveCommand
       end
 
       def test_match_is_true_when_input_is_MOVE
@@ -113,7 +113,7 @@ module ToyRobot
 
     class DescribeLeftCommand < CommandTest
       def described_class
-        LeftCommand
+        Command::LeftCommand
       end
 
       def test_match_is_true_when_input_is_LEFT
@@ -134,7 +134,7 @@ module ToyRobot
 
     class DescribeRightCommand < CommandTest
       def described_class
-        RightCommand
+        Command::RightCommand
       end
 
       def test_match_is_true_when_input_is_RIGHT
@@ -155,7 +155,7 @@ module ToyRobot
 
     class DescribeReportCommand < CommandTest
       def described_class
-        ReportCommand
+        Command::ReportCommand
       end
 
       def test_match_is_true_when_input_is_REPORT
@@ -180,7 +180,7 @@ module ToyRobot
 
     class DescribeNoActionCommand < CommandTest
       def described_class
-        NoActionCommand
+        Command::NoActionCommand
       end
 
       def test_match_is_true_when_input_is_anything
