@@ -18,7 +18,7 @@ module ToyRobot
       # input == specified_input
     end
 
-    def execute
+    def execute(*_)
       # does nothing
       # specified_output
       # # entity.method(specified_input).call
@@ -113,7 +113,7 @@ module ToyRobot
   end
 
   class ReportCommand < Command
-    def execute
+    def execute(*_)
       p "#{entity.transform.position},#{facing}"
     end
 
@@ -130,7 +130,7 @@ module ToyRobot
   end
 
   class NoActionCommand < Command
-    def execute
+    def execute(*_)
     end
 
     def match?(_input)
