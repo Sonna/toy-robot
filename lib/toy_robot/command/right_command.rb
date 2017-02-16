@@ -3,7 +3,7 @@ require "toy_robot/command/base"
 module ToyRobot
   module Command
     class RightCommand < Base
-      CLOCKWISE = -90.freeze # degrees
+      CLOCKWISE = -90 # degrees
 
       def execute(*_)
         entity.transform.rotate(CLOCKWISE)
