@@ -11,7 +11,7 @@ module ToyRobot
     end
 
     def valid_move?(entity)
-      (min...max) === entity.next_move.x && (min...max) === entity.next_move.y
+      (min..max) === entity.next_move.x && (min..max) === entity.next_move.y
     end
   end
 end
