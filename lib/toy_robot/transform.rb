@@ -9,16 +9,9 @@ module ToyRobot
     attr_reader :position
     attr_reader :target
 
-    # attr_accessor :position
-    # # attr_accessor :rotation
-    # # attr_accessor :scale
-    # attr_accessor :target
-
-    def initialize(position, target) # = nil) # rotation, scale = 0.0f)
+    def initialize(position, target = nil) # rotation, scale = 0.0f)
       @position = position
-      @target = target # || position + Vector2D.up
-      # @rotation = rotation
-      # @scale = scale
+      @target = target || position + Vector2D.up
     end
 
     def +(other)
@@ -30,10 +23,10 @@ module ToyRobot
 
     # @param translation [Vector2D]
     def translate(translation)
-      new_position = @position + translation
-      new_target = @target + translation
+      @position += translation
+      @target += translation
 
-      self.class.new(new_position, new_target)
+      self
     end
 
     # Positive angle rotations are anti-clockwise, whilst negative angle rotate
@@ -57,8 +50,9 @@ module ToyRobot
       rotated_point = Vector2D.new(x, y)
 
       # translate point back
-      new_target = rotated_point + position
-      self.class.new(position, new_target)
+      @target = rotated_point + position
+
+      self
     end
 
     private
