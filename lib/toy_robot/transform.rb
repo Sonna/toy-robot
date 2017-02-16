@@ -38,6 +38,8 @@ module ToyRobot
     #
     # CLOCKWISE      = -90 # degrees
     # ANTI_CLOCKWISE =  90 # degrees
+    #
+    # rubocop:disable Metrics/AbcSize
     def rotate(angle)
       theta = radians(angle)
 
@@ -58,6 +60,7 @@ module ToyRobot
 
       self
     end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
