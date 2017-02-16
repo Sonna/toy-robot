@@ -45,11 +45,11 @@ module ToyRobot
         Command::PlaceCommand
       end
 
-      def test_match_is_true_when_input_is_PLACE
+      def test_match_is_true_when_input_is_place
         assert @subject.match?("PLACE")
       end
 
-      def test_match_is_false_when_input_is_not_PLACE
+      def test_match_is_false_when_input_is_not_place
         assert !@subject.match?("REPORT")
       end
 
@@ -69,11 +69,11 @@ module ToyRobot
         Command::MoveCommand
       end
 
-      def test_match_is_true_when_input_is_MOVE
+      def test_match_is_true_when_input_is_move
         assert @subject.match?("MOVE")
       end
 
-      def test_match_is_false_when_input_is_not_MOVE
+      def test_match_is_false_when_input_is_not_move
         assert !@subject.match?("LEFT")
       end
 
@@ -116,11 +116,11 @@ module ToyRobot
         Command::LeftCommand
       end
 
-      def test_match_is_true_when_input_is_LEFT
+      def test_match_is_true_when_input_is_left
         assert @subject.match?("LEFT")
       end
 
-      def test_match_is_false_when_input_is_not_LEFT
+      def test_match_is_false_when_input_is_not_left
         assert !@subject.match?("PLACE")
       end
 
@@ -137,11 +137,11 @@ module ToyRobot
         Command::RightCommand
       end
 
-      def test_match_is_true_when_input_is_RIGHT
+      def test_match_is_true_when_input_is_right
         assert @subject.match?("RIGHT")
       end
 
-      def test_match_is_false_when_input_is_not_RIGHT
+      def test_match_is_false_when_input_is_not_right
         assert !@subject.match?("PLACE")
       end
 
@@ -158,11 +158,11 @@ module ToyRobot
         Command::ReportCommand
       end
 
-      def test_match_is_true_when_input_is_REPORT
+      def test_match_is_true_when_input_is_report
         assert @subject.match?("REPORT")
       end
 
-      def test_match_is_false_when_input_is_not_REPORT
+      def test_match_is_false_when_input_is_not_report
         assert !@subject.match?("PLACE")
       end
 
