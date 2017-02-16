@@ -6,6 +6,7 @@ module ToyRobot
       assert `bin/app README.md`
     end
 
+    # rubocop:disable Metrics/MethodLength
     def test_bin_app_returns_expected_output_for_readme_file
       actual_output = `bin/app README.md`
       expected_output = <<-SHELL
@@ -20,6 +21,7 @@ module ToyRobot
 
       assert expected_output, actual_output
     end
+    # rubocop:enable Metrics/MethodLength
 
     def test_bin_app_returns_expected_output_for_example_a_file
       actual_output = `bin/app test/fixtures/example_a.txt`

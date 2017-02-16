@@ -9,14 +9,14 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alex Sonneveld"]
   spec.email         = ["Alex.Sonneveld@live.com.au"]
 
-  spec.summary       = %q{An implementation of the Toy Robot specification coding test}
-  spec.description   = %q{
+  spec.summary       = "An implementation of the Toy Robot specification coding test"
+  spec.description   = '
     This is a personal attempt at implementing the Toy Robot specification brief
     as a part of expected coding tests in the future for Ruby Developer
     positions within Melbourne. It should demonstrate good coding practices,
     some coding patterns and overall my relevant skill as a developer.
-  }
-  spec.homepage      = "https://github.com/sonna/toy-robot"
+  '
+  spec.homepage = "https://github.com/sonna/toy-robot"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

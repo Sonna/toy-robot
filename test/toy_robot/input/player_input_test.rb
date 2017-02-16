@@ -3,7 +3,7 @@ require "test_helper"
 module ToyRobot
   module Input
     class PlayerInputTest < Minitest::Test
-      COMMANDS_STRING_IO = <<-COMMANDS
+      COMMANDS_STRING_IO = <<-COMMANDS.freeze
         PLACE 4,2,EAST
         RIGHT
         REPORT
@@ -13,14 +13,9 @@ module ToyRobot
       COMMANDS
 
       class BarEntity
-        def command(*_)
-          true
+        def process(input, *_)
+          %w(PLACE MOVE LEFT RIGHT REPORT).include?(input)
         end
-        alias_method :place, :command
-        alias_method :move, :command
-        alias_method :left, :command
-        alias_method :right, :command
-        alias_method :report, :command
       end
 
       def described_class
