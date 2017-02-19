@@ -120,7 +120,8 @@ Or install it yourself as:
 
 ## Usage
 
-To use the `toy-robot` application, either execute the script and start typing in commands; e.g.
+To use the `toy-robot` application, either execute the script and start typing
+in commands; e.g.
 
 ```shell
     $ bin/app
@@ -147,6 +148,9 @@ Or execute the script with the path to file that will be used as input; e.g.
     "0,1,NORTH"
     "0,0,WEST"
     "3,3,NORTH"
+    "3,3,NORTH"
+    "1,2,SOUTH"
+    "1,0,WEST"
 ```
 
 All given User inputs should match what was specified in the Toy Robot
@@ -155,11 +159,34 @@ back to the user when asked `REPORT`, etc. However, it also implements a `EXIT`
 command in order escape the application/script outside of the regular terminate
 command `Ctrl + C`.
 
+## Caveats
+
+- The square tabletop, of dimensions 5 units x 5 units, assumes a Range of
+  `(0...5)` not `(0..5)`; e.g.
+
+  ```ruby
+      (0...5).to_a  # => [0, 1, 2, 3, 4]
+      (0...5).count # => 5
+
+      (0..5).to_a  # => [0, 1, 2, 3, 4, 5]
+      (0..5).count # => 6
+  ```
+
+  Since counting starts at `0` from the origin, it means the fifth value would
+  be `4` not `5` (which in this case would be the sixth value and create a
+  tabletop of 6 x 6 units, with 36 possible positions, rather than 25).
+
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake test` to run the tests. You can also run `bin/console` for an interactive
+rompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push
+git commits and tags, and push the `.gem` file to
+[rubygems.org](https://rubygems.org).
 
 ## Contributing
 
