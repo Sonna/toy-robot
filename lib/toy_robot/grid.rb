@@ -1,3 +1,5 @@
+require "toy_robot/cell"
+
 module ToyRobot
   class Grid
     MAX = 5
