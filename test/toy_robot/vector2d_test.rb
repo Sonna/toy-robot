@@ -101,6 +101,12 @@ module ToyRobot
       def test_to_s_returns_coordinates
         assert_equal "0,0", @subject.to_s
       end
+
+      def test_subject_is_a_value_object
+        assert_equal \
+          described_class.new(1, 2),
+          described_class.new(1, 2)
+      end
     end
 
     class DescribeAddMethod < Vector2DTest
@@ -230,11 +236,6 @@ module ToyRobot
     end
 
     class DescribeHashKeyMethod < Vector2DTest
-      def test_subject_is_a_value_object
-        assert_equal \
-          described_class.new(1, 2),
-          described_class.new(1, 2)
-      end
       def test_subject_has_equal_hash_key_values
         assert_equal \
           Hash[described_class.new(3, 4), ""],

@@ -12,6 +12,10 @@ module ToyRobot
 
     class DescribeMethods < GridTest
       def test_subject_responds_to_min
+        assert_respond_to(@subject, :cells)
+      end
+
+      def test_subject_responds_to_min
         assert_respond_to(@subject, :min)
       end
 
@@ -37,6 +41,38 @@ module ToyRobot
       def test_set_max_value_on_initialize
         subject = described_class.new(0, 6)
         assert_equal 6, subject.max
+      end
+
+      def test_cells_has_default_value
+        expected_cells = {
+          Vector2D.new(0, 0) => Cell.new(@subject),
+          Vector2D.new(0, 1) => Cell.new(@subject),
+          Vector2D.new(0, 2) => Cell.new(@subject),
+          Vector2D.new(0, 3) => Cell.new(@subject),
+          Vector2D.new(0, 4) => Cell.new(@subject),
+          Vector2D.new(1, 0) => Cell.new(@subject),
+          Vector2D.new(1, 1) => Cell.new(@subject),
+          Vector2D.new(1, 2) => Cell.new(@subject),
+          Vector2D.new(1, 3) => Cell.new(@subject),
+          Vector2D.new(1, 4) => Cell.new(@subject),
+          Vector2D.new(2, 0) => Cell.new(@subject),
+          Vector2D.new(2, 1) => Cell.new(@subject),
+          Vector2D.new(2, 2) => Cell.new(@subject),
+          Vector2D.new(2, 3) => Cell.new(@subject),
+          Vector2D.new(2, 4) => Cell.new(@subject),
+          Vector2D.new(3, 0) => Cell.new(@subject),
+          Vector2D.new(3, 1) => Cell.new(@subject),
+          Vector2D.new(3, 2) => Cell.new(@subject),
+          Vector2D.new(3, 3) => Cell.new(@subject),
+          Vector2D.new(3, 4) => Cell.new(@subject),
+          Vector2D.new(4, 0) => Cell.new(@subject),
+          Vector2D.new(4, 1) => Cell.new(@subject),
+          Vector2D.new(4, 2) => Cell.new(@subject),
+          Vector2D.new(4, 3) => Cell.new(@subject),
+          Vector2D.new(4, 4) => Cell.new(@subject)
+        }
+
+        assert_equal expected_cells, @subject.cells
       end
     end
 

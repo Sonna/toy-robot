@@ -8,6 +8,11 @@ module ToyRobot
       @world = world
     end
 
+    def ==(other)
+      world == other.world && entity == other.entity
+    end
+    alias_method :eql?, :==
+
     def draw
       entity && entity.draw || "."
     end
