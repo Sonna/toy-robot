@@ -24,16 +24,23 @@ module ToyRobot
       @cells[vector2d].entity = entity
     end
 
-    def valid_move?(entity)
-      (min...max).cover?(entity.next_move.x) &&
-        (min...max).cover?(entity.next_move.y)
-    end
-
     def draw
       cells.sort.each_with_object([]) do |(vector2d, cell), canvas|
         canvas << cell.draw
         canvas << "\n" if vector2d.x == (max - 1)
       end.join
+    end
+
+    def move(entity)
+      last_position = entity.position
+      next_position = entity.next_move.position
+      @cells[next_position].entity = @cells[last_position].entity
+      @cells[last_position].entity = nil
+    end
+
+    def valid_move?(entity)
+      (min...max).cover?(entity.next_move.x) &&
+        (min...max).cover?(entity.next_move.y)
     end
   end
 end

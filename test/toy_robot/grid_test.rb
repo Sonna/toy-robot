@@ -2,6 +2,17 @@ require "test_helper"
 
 module ToyRobot
   class GridTest < Minitest::Test
+    FooPoint = Struct.new(:x, :y) do
+      def ==(other)
+        x == other.x && y == other.y
+      end
+      alias_method :eql?, :==
+
+      def hash
+        [x, y].hash
+      end
+    end
+
     def described_class
       Grid
     end
@@ -11,12 +22,16 @@ module ToyRobot
     end
 
     class DescribeMethods < GridTest
-      def test_subject_responds_to_min
+      def test_subject_responds_to_add_entity
         assert_respond_to(@subject, :add_entity)
       end
 
-      def test_subject_responds_to_min
+      def test_subject_responds_to_cells
         assert_respond_to(@subject, :cells)
+      end
+
+      def test_subject_responds_to_move
+        assert_respond_to(@subject, :move)
       end
 
       def test_subject_responds_to_min
@@ -145,17 +160,6 @@ module ToyRobot
     class DescribeDraw < GridTest
       FooDrawableEntity = Struct.new(:draw)
 
-      FooPoint = Struct.new(:x, :y) do
-        def ==(other)
-          x == other.x && y == other.y
-        end
-        alias_method :eql?, :==
-
-        def hash
-          [x, y].hash
-        end
-      end
-
       def test_subject_draw
         expected_drawn_grid = <<-STRING.gsub(/^          /, "")
           .....
@@ -184,6 +188,35 @@ module ToyRobot
         STRING
 
         assert_equal expected_drawn_grid, subject.draw
+      end
+    end
+
+    class DescribeMoveMethod < GridTest
+      class FooEntity
+        attr_reader :position
+
+        def initialize(position)
+          @position = position
+        end
+
+        def next_move
+          self.class.new(FooPoint.new(position.x, position.y + 1))
+        end
+      end
+
+      def test_subject_move_entity
+        subject = described_class.new
+
+        last_position = FooPoint.new(2, 0)
+        next_position = FooPoint.new(2, 1)
+
+        foo_entity = FooEntity.new(last_position)
+        subject.add_entity(last_position, foo_entity)
+
+        subject.move(foo_entity)
+
+        assert_nil subject.cells[last_position].entity
+        assert_equal subject.cells[next_position].entity, foo_entity
       end
     end
   end
