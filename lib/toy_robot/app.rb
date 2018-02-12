@@ -7,16 +7,24 @@ module ToyRobot
     def initialize(filename = nil)
       @input =
         filename ? Input::FileInput.new(filename) : Input::PlayerInput.new
-      table = Grid.new
-      Robot.new(table, input)
+      @scene = table = Grid.new
+      @player_character = Robot.new(table)
+      @player_controller =
+        Controller::PlayerController.new(self, input, player_character)
     end
 
     def run
-      loop { break if input.update == "EXIT" }
+      loop do
+        command = player_controller.handle_input
+        break if command == "EXIT"
+      end
     end
 
     private
 
     attr_reader :input
+    attr_reader :player_character
+    attr_reader :player_controller
+    attr_reader :scene
   end
 end

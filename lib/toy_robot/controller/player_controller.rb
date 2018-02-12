@@ -14,7 +14,7 @@ module ToyRobot
       end
 
       def handle_input
-        command, *args = input.process
+        command, *args = input.update
         handle(command, *args)
         # app.event_queue << proc { handle(command, *args) }
         command
