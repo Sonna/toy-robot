@@ -1,7 +1,7 @@
 require "toy_robot/transform"
 
 module ToyRobot
-  class Robot
+  class Obstacle
     extend Forwardable
     def_delegators :@transform, :position
 
@@ -9,17 +9,19 @@ module ToyRobot
 
     attr_reader :world
 
-    NORTH  = Vector2D.up.freeze
-    ORIGIN = Vector2D.zero.freeze
-
-    def initialize(world)
-      @transform = Transform.new(ORIGIN, NORTH)
+    def initialize(world, transform = Transform.new(Vector2D.zero))
       @world = world
+      @transform = transform
       world.add_entity(transform.position, self)
     end
 
+    def ==(other)
+      world == other.world && transform == other.transform
+    end
+    alias_method :eql?, :==
+
     def draw
-      "R"
+      "O"
     end
   end
 end

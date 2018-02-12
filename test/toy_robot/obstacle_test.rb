@@ -1,30 +1,21 @@
 require "test_helper"
 
 module ToyRobot
-  class RobotTest < Minitest::Test
-    FooGrid = Struct.new(:min, :max) do
+  class ObstacleTest < Minitest::Test
+    class BarGrid
       def add_entity(*_); end
-
-      # rubocop:disable Metrics/AbcSize
-      def valid_move?(entity)
-        entity.next_move.x >= min &&
-          entity.next_move.y >= min &&
-          entity.next_move.x <= max &&
-          entity.next_move.y <= max
-      end
-      # rubocop:enable Metrics/AbcSize
     end
 
     def described_class
-      Robot
+      Obstacle
     end
 
     def setup
-      world = FooGrid.new(0, 5)
+      world = BarGrid.new
       @subject = described_class.new(world)
     end
 
-    class DescribeMethods < RobotTest
+    class DescribeMethods < ObstacleTest
       def test_subject_responds_to_position
         assert_respond_to(@subject, :position)
       end
@@ -34,13 +25,13 @@ module ToyRobot
       end
 
       def test_subject_draw
-        assert_equal "R", @subject.draw
+        assert_equal "O", @subject.draw
       end
     end
 
-    class DescribedRobotInitializedAttributes < RobotTest
+    class DescribedRobotInitializedAttributes < ObstacleTest
       def test_input_has_mocked_value
-        world = FooGrid.new(0, 0)
+        world = BarGrid.new
         subject = described_class.new(world)
 
         assert_equal world, subject.world

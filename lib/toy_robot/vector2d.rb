@@ -34,6 +34,7 @@ module ToyRobot
     def ==(other)
       x == other.x && y == other.y
     end
+    alias_method :eql?, :==
 
     def -(other)
       self.class.new(x - other.x, y - other.y)
@@ -41,6 +42,23 @@ module ToyRobot
 
     def +(other)
       self.class.new(x + other.x, y + other.y)
+    end
+
+    # Largest Y value to smallest
+    # Smallest X value to largest
+    def <=>(other)
+      return -1 if y > other.y
+      return -1 if y == other.y && x < other.x
+      return 0 if y == other.y && x == other.x
+      return 1 if y < other.y
+      return 1 if y == other.y && x > other.x
+    rescue
+      puts other
+    end
+
+    def hash
+      # x.hash ^ y.hash # XOR # But high change of collision
+      [x, y].hash
     end
 
     def to_s
