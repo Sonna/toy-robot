@@ -20,6 +20,10 @@ module ToyRobot
       end
     end
 
+    def add_entity(vector2d, entity)
+      @cells[vector2d].entity = entity
+    end
+
     def valid_move?(entity)
       (min...max).cover?(entity.next_move.x) &&
         (min...max).cover?(entity.next_move.y)

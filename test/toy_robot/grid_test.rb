@@ -12,6 +12,10 @@ module ToyRobot
 
     class DescribeMethods < GridTest
       def test_subject_responds_to_min
+        assert_respond_to(@subject, :add_entity)
+      end
+
+      def test_subject_responds_to_min
         assert_respond_to(@subject, :cells)
       end
 
@@ -139,6 +143,19 @@ module ToyRobot
     end
 
     class DescribeDraw < GridTest
+      FooDrawableEntity = Struct.new(:draw)
+
+      FooPoint = Struct.new(:x, :y) do
+        def ==(other)
+          x == other.x && y == other.y
+        end
+        alias_method :eql?, :==
+
+        def hash
+          [x, y].hash
+        end
+      end
+
       def test_subject_draw
         expected_drawn_grid = <<-STRING.gsub(/^          /, "")
           .....
@@ -149,6 +166,24 @@ module ToyRobot
         STRING
 
         assert_equal expected_drawn_grid, @subject.draw
+      end
+
+      def test_subject_draw_with_added_entities
+        subject = described_class.new
+
+        subject.add_entity(FooPoint.new(2, 0), FooDrawableEntity.new("A"))
+        subject.add_entity(FooPoint.new(1, 3), FooDrawableEntity.new("B"))
+        subject.add_entity(FooPoint.new(4, 4), FooDrawableEntity.new("C"))
+
+        expected_drawn_grid = <<-STRING.gsub(/^          /, "")
+          ....C
+          .B...
+          .....
+          .....
+          ..A..
+        STRING
+
+        assert_equal expected_drawn_grid, subject.draw
       end
     end
   end
