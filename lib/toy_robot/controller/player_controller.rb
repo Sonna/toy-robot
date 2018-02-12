@@ -21,6 +21,8 @@ module ToyRobot
       end
 
       def commands
+        draw = Command::App::DrawCommand.new(scene)
+
         place = Command::PlaceCommand.new(entity)
         move = Command::MoveCommand.new(entity)
         left = Command::LeftCommand.new(entity)
@@ -29,7 +31,7 @@ module ToyRobot
 
         no_action = Command::NoActionCommand.new(self)
 
-        [place, move, left, right, report, no_action]
+        [draw, place, move, left, right, report, no_action]
       end
 
       def command_for_input(input)

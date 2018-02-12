@@ -4,6 +4,12 @@ require "test_helper"
 module ToyRobot
   class PlayerControllerTest < Minitest::Test
     BazGrid = Struct.new(:min, :max) do
+      def draw(*_)
+        "BazGrid drawing"
+      end
+
+      def move(*_); end
+
       # rubocop:disable Metrics/AbcSize
       def valid_move?(entity)
         entity.next_move.x >= min &&
@@ -12,6 +18,12 @@ module ToyRobot
           entity.next_move.y <= max
       end
       # rubocop:enable Metrics/AbcSize
+    end
+
+    BazScene = Struct.new(:grid) do
+      def render!
+        p grid.draw
+      end
     end
 
     class BazInput
@@ -30,6 +42,10 @@ module ToyRobot
         @transform = Transform.new(Vector2D.zero, Vector2D.up)
         @world = world
       end
+
+      # def process(input, *_)
+      #   %w(PLACE MOVE LEFT RIGHT REPORT).include?(input)
+      # end
     end
 
     def described_class
@@ -37,9 +53,12 @@ module ToyRobot
     end
 
     def setup
-      scene = world = BazGrid.new(0, 5)
+      world = BazGrid.new(0, 5)
       input = BazInput.new
       entity = BazEntity.new(world)
+
+      scene = BazScene.new(world)
+
       @subject = described_class.new(scene, input, entity)
     end
 
@@ -72,6 +91,24 @@ module ToyRobot
         assert_respond_to(@subject, :handle_input)
       end
 
+      # def test_control_assigns_entity
+      #   assert @subject.entity
+      # end
+
+      # def test_control_assigns_new_foo_entity
+      #   world = BazGrid.new(0, 5)
+      #   new_entity = BazEntity.new(world)
+      #   @subject.control(new_entity)
+      #   assert_equal new_entity, @subject.entity
+      # end
+
+      def test_subject_responds_to_draw
+        $stdout = StringIO.new
+        assert @subject.handle("DRAW")
+      ensure
+        $stdout = STDOUT
+      end
+
       def test_subject_responds_to_move
         assert @subject.handle("MOVE")
       end
@@ -91,6 +128,18 @@ module ToyRobot
       def test_subject_responds_to_report
         $stdout = StringIO.new
         assert @subject.handle("REPORT")
+      ensure
+        $stdout = STDOUT
+      end
+    end
+
+    class DescribeAppCommandMethods < PlayerControllerTest
+      def test_draw
+        $stdout = StringIO.new
+
+        @subject.handle("DRAW")
+
+        assert_equal %("BazGrid drawing"\n), $stdout.string
       ensure
         $stdout = STDOUT
       end
