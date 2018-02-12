@@ -16,6 +16,7 @@ module ToyRobot
     def initialize(world)
       @transform = Transform.new(ORIGIN, NORTH)
       @world = world
+      world.add_entity(transform.position, self)
     end
 
     def draw
