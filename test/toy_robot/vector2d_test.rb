@@ -78,6 +78,14 @@ module ToyRobot
         assert_respond_to(@subject, :-)
       end
 
+      def test_subject_can_equal
+        assert_respond_to(@subject, :eql?)
+      end
+
+      def test_subject_can_equal_operator
+        assert_respond_to(@subject, :==)
+      end
+
       def test_subject_responds_to_to_s
         assert_respond_to(@subject, :to_s)
       end
@@ -218,6 +226,19 @@ module ToyRobot
         expected_output = described_class.new(0, -2)
 
         assert_equal actual_output, expected_output
+      end
+    end
+
+    class DescribeHashKeyMethod < Vector2DTest
+      def test_subject_is_a_value_object
+        assert_equal \
+          described_class.new(1, 2),
+          described_class.new(1, 2)
+      end
+      def test_subject_has_equal_hash_key_values
+        assert_equal \
+          Hash[described_class.new(3, 4), ""],
+          Hash[described_class.new(3, 4), ""]
       end
     end
   end
