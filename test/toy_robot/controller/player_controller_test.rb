@@ -21,6 +21,10 @@ module ToyRobot
     end
 
     BazScene = Struct.new(:grid) do
+      def quit!
+        true
+      end
+
       def render!
         p grid.draw
       end
@@ -109,6 +113,10 @@ module ToyRobot
         $stdout = STDOUT
       end
 
+      def test_subject_responds_to_exit
+        assert @subject.handle("EXIT")
+      end
+
       def test_subject_responds_to_move
         assert @subject.handle("MOVE")
       end
@@ -140,6 +148,16 @@ module ToyRobot
         @subject.handle("DRAW")
 
         assert_equal %("BazGrid drawing"\n), $stdout.string
+      ensure
+        $stdout = STDOUT
+      end
+
+      def test_exit
+        $stdout = StringIO.new
+
+        @subject.handle("EXIT")
+
+        assert_equal "", $stdout.string
       ensure
         $stdout = STDOUT
       end

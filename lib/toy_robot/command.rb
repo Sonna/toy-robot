@@ -1,4 +1,5 @@
 require "toy_robot/command/app/draw_command"
+require "toy_robot/command/app/exit_command"
 
 require "toy_robot/command/left_command"
 require "toy_robot/command/move_command"

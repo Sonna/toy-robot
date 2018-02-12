@@ -5,6 +5,7 @@ module ToyRobot
     end
 
     def initialize(filename = nil)
+      @quiting = false
       @rendering = false
 
       @input =
@@ -15,11 +16,15 @@ module ToyRobot
         Controller::PlayerController.new(self, input, player_character)
     end
 
+    def quit!
+      @quiting = true
+    end
+
     def run
       loop do
         command = player_controller.handle_input
         render
-        break if command == "EXIT"
+        break if quiting
       end
     end
 
@@ -32,10 +37,12 @@ module ToyRobot
     attr_reader :input
     attr_reader :player_character
     attr_reader :player_controller
+    attr_reader :quiting
+    attr_reader :rendering
     attr_reader :scene
 
     def render
-      puts scene.draw if @rendering
+      puts scene.draw if rendering
       @rendering = false
     end
   end
