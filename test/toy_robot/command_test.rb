@@ -2,7 +2,21 @@ require "test_helper"
 
 module ToyRobot
   class CommandTest < Minitest::Test
-    BarGrid = Struct.new(:min, :max) do
+    class BarGrid
+      attr_reader :entities
+      attr_reader :min
+      attr_reader :max
+
+      def initialize(min, max)
+        @entities = {}
+        @min = min
+        @max = max
+      end
+
+      def add_entity(vector2d, entity)
+        @entities[vector2d] = entity if entity
+      end
+
       def move(*_); end
 
       def valid_move?(entity)
