@@ -24,5 +24,12 @@ module ToyRobot
       (min...max).cover?(entity.next_move.x) &&
         (min...max).cover?(entity.next_move.y)
     end
+
+    def draw
+      cells.sort.each_with_object([]) do |(vector2d, cell), canvas|
+        canvas << cell.draw
+        canvas << "\n" if vector2d.x == (max - 1)
+      end.join
+    end
   end
 end

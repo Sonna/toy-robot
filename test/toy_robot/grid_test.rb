@@ -137,5 +137,19 @@ module ToyRobot
         assert !subject.valid_move?(entity)
       end
     end
+
+    class DescribeDraw < GridTest
+      def test_subject_draw
+        expected_drawn_grid = <<-STRING.gsub(/^          /, "")
+          .....
+          .....
+          .....
+          .....
+          .....
+        STRING
+
+        assert_equal expected_drawn_grid, @subject.draw
+      end
+    end
   end
 end
