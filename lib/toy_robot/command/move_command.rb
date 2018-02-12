@@ -6,7 +6,13 @@ module ToyRobot
   module Command
     class MoveCommand < Base
       def execute(*_)
-        entity.transform.translate(Directions[facing]) if valid_move?
+        return unless valid_move?
+        entity.world.move(self)
+        entity.transform.translate(Directions[facing])
+      end
+
+      def match?(input)
+        input == "MOVE"
       end
 
       def next_move
@@ -14,8 +20,12 @@ module ToyRobot
         new_transform.translate(Directions[facing])
       end
 
-      def match?(input)
-        input == "MOVE"
+      def next_position
+        next_move.position
+      end
+
+      def position
+        entity.transform.position
       end
 
       def valid_move?

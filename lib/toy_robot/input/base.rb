@@ -1,8 +1,6 @@
 module ToyRobot
   module Input
     class Base
-      attr_reader :entity
-
       # == Example input
       #
       # PLACE X,Y,F
@@ -13,14 +11,8 @@ module ToyRobot
 
       SEPARATORS_REGEX = /[,\s]/
 
-      def control(entity)
-        @entity = entity
-      end
-
-      def update
-        input, *args = source.chomp.strip.split(SEPARATORS_REGEX)
-        entity.process(input, *args)
-        input
+      def process
+        source.chomp.strip.split(SEPARATORS_REGEX)
       end
 
       # @abstract Subclass is expected to implemnet #source
