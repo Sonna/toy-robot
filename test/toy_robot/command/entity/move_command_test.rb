@@ -4,7 +4,7 @@ module ToyRobot
   class CommandTest < Minitest::Test
     class DescribeMoveCommand < CommandTest
       def described_class
-        Command::MoveCommand
+        Command::Entity::MoveCommand
       end
 
       def test_subject_responds_to_next_move

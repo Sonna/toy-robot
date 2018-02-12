@@ -23,11 +23,11 @@ module ToyRobot
         draw = Command::App::DrawCommand.new(scene)
         quit = Command::App::ExitCommand.new(scene)
 
-        place = Command::PlaceCommand.new(entity)
-        move = Command::MoveCommand.new(entity)
-        left = Command::LeftCommand.new(entity)
-        right = Command::RightCommand.new(entity)
-        report = Command::ReportCommand.new(entity)
+        place = Command::Entity::PlaceCommand.new(entity)
+        move = Command::Entity::MoveCommand.new(entity)
+        left = Command::Entity::LeftCommand.new(entity)
+        right = Command::Entity::RightCommand.new(entity)
+        report = Command::Entity::ReportCommand.new(entity)
 
         no_action = Command::NoActionCommand.new(self)
 

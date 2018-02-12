@@ -4,7 +4,7 @@ module ToyRobot
   class CommandTest < Minitest::Test
     class DescribeLeftCommand < CommandTest
       def described_class
-        Command::LeftCommand
+        Command::Entity::LeftCommand
       end
 
       def test_match_is_true_when_input_is_left

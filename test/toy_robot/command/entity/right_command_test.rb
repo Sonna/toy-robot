@@ -4,7 +4,7 @@ module ToyRobot
   class CommandTest < Minitest::Test
     class DescribeRightCommand < CommandTest
       def described_class
-        Command::RightCommand
+        Command::Entity::RightCommand
       end
 
       def test_match_is_true_when_input_is_right

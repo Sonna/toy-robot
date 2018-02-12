@@ -4,7 +4,7 @@ module ToyRobot
   class CommandTest < Minitest::Test
     class DescribePlaceCommand < CommandTest
       def described_class
-        Command::PlaceCommand
+        Command::Entity::PlaceCommand
       end
 
       def test_match_is_true_when_input_is_place

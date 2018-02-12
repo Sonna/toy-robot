@@ -4,7 +4,7 @@ module ToyRobot
   class CommandTest < Minitest::Test
     class DescribeReportCommand < CommandTest
       def described_class
-        Command::ReportCommand
+        Command::Entity::ReportCommand
       end
 
       def test_match_is_true_when_input_is_report
