@@ -38,6 +38,7 @@ Create an application that can read in commands of the following form:
   and REPORT commands.
 - Input can be from a file, or from standard input, as the developer chooses.
 - Provide test data to exercise the application.
+- The application must be a command line application.
 
 Constraints
 -----------
@@ -123,6 +124,9 @@ developing your solution.
 Please engineer your solution to a standard you consider suitable for
 production. It is not required to provide any graphical output showing the
 movement of the toy robot.
+
+Please do not put your name in any of the submitted code since this makes it
+harder for us to review your submission anonymously.
 
 Installation
 ============
