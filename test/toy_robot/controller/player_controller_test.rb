@@ -8,6 +8,10 @@ module ToyRobot
         "BazGrid drawing"
       end
 
+      def add_entity(vector2d, entity)
+        Hash[vector2d, entity] if entity
+      end
+
       def move(*_); end
 
       # rubocop:disable Metrics/AbcSize
@@ -54,6 +58,10 @@ module ToyRobot
 
     def described_class
       Controller::PlayerController
+    end
+
+    def obstacle_class
+      Obstacle
     end
 
     def setup
@@ -131,6 +139,10 @@ module ToyRobot
 
       def test_subject_responds_to_place
         assert @subject.handle("PLACE", 0, 0, "NORTH")
+      end
+
+      def test_subject_responds_to_place_object
+        assert @subject.handle("PLACE_OBJECT")
       end
 
       def test_subject_responds_to_report
@@ -258,6 +270,23 @@ module ToyRobot
         @subject.handle("PLACE", -1, -1, "NORTH")
         expected_position = Vector2D.new(-1, -1)
         assert_equal expected_position, @subject.entity.position
+      end
+
+      def test_place_object
+        world = BazGrid.new(0, 5)
+        input = BazInput.new
+        entity = BazEntity.new(world)
+
+        scene = BazScene.new(world)
+
+        subject = described_class.new(scene, input, entity)
+
+        obstacle_position = entity.transform.target
+        expected_obstacle =
+          obstacle_class.new(world, Transform.new(obstacle_position))
+
+        assert_equal Hash[obstacle_position, expected_obstacle],
+          subject.handle("PLACE_OBJECT")
       end
 
       # The initial brief describes:

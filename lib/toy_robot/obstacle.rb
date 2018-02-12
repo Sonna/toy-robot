@@ -15,6 +15,11 @@ module ToyRobot
       world.add_entity(transform.position, self)
     end
 
+    def ==(other)
+      world == other.world && transform == other.transform
+    end
+    alias_method :eql?, :==
+
     def draw
       "O"
     end
