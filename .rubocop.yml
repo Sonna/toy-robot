@@ -1,0 +1,10 @@
+AllCops:
+  Exclude:
+  - "*.gemspec"
+
+Style/Documentation:
+  Exclude:
+  - "**/*.rb"
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
