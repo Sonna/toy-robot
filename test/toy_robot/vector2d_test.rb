@@ -235,6 +235,33 @@ module ToyRobot
       end
     end
 
+    class DescribeSpaceshipComparisonMethod < Vector2DTest
+      def test_subject_sorts_equal_values
+        assert_equal 0, described_class.new(1, 2) <=> described_class.new(1, 2)
+      end
+
+      def test_subject_sorts_largest_y_to_smallest_y
+        assert_equal (-1),
+         described_class.new(0, 2) <=> described_class.new(0, 1)
+
+        assert_equal 1, described_class.new(0, 1) <=> described_class.new(0, 2)
+      end
+
+      def test_subject_sorts_smallest_x_to_largest_x
+        assert_equal (-1),
+         described_class.new(1, 0) <=> described_class.new(2, 0)
+
+        assert_equal 1, described_class.new(2, 0) <=> described_class.new(1, 0)
+      end
+
+      def test_subject_sorts_largest_y_to_smallest_y_and_smallest_x_to_largest_x
+        assert_equal (-1),
+         described_class.new(4, 3) <=> described_class.new(2, 1)
+
+        assert_equal 1, described_class.new(1, 2) <=> described_class.new(2, 3)
+      end
+    end
+
     class DescribeHashKeyMethod < Vector2DTest
       def test_subject_has_equal_hash_key_values
         assert_equal \
