@@ -22,7 +22,8 @@ module ToyRobot
 
     def run
       loop do
-        command = player_controller.handle_input
+        process_input
+        # update
         render
         break if quiting
       end
@@ -40,6 +41,10 @@ module ToyRobot
     attr_reader :quiting
     attr_reader :rendering
     attr_reader :scene
+
+    def process_input
+      player_controller.handle_input
+    end
 
     def render
       puts scene.draw if rendering

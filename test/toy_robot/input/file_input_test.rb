@@ -15,11 +15,11 @@ module ToyRobot
         @subject = described_class.new(filename)
       end
 
-      def test_update
-        assert_equal ["PLACE", "0", "0", "NORTH"], @subject.update
+      def test_process
+        assert_equal ["PLACE", "0", "0", "NORTH"], @subject.process
       end
 
-      def test_update_loop
+      def test_process_loop
         expected_returned_inputs = [
           ["PLACE", "0", "0", "NORTH"],
           ["MOVE"],
@@ -29,7 +29,7 @@ module ToyRobot
         returned_inputs = []
 
         loop do
-          returned_inputs << @subject.update
+          returned_inputs << @subject.process
           break if returned_inputs.last == ["EXIT"]
         end
 

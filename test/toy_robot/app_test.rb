@@ -46,8 +46,20 @@ module ToyRobot
         @subject = described_class.new
       end
 
-      def test_subject_responds_to_input
+      def test_subject_responds_to_quit
+        assert_respond_to(@subject, :quit!)
+      end
+
+      def test_subject_responds_to_render
         assert_respond_to(@subject, :render!)
+      end
+
+      def test_subject_quit
+        assert @subject.quit!
+      end
+
+      def test_subject_render
+        assert @subject.render!
       end
     end
 

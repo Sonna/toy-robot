@@ -11,7 +11,7 @@ module ToyRobot
 
       SEPARATORS_REGEX = /[,\s]/
 
-      def update
+      def process
         source.chomp.strip.split(SEPARATORS_REGEX)
       end
 

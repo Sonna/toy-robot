@@ -12,8 +12,8 @@ module ToyRobot
           @subject = described_class.new
         end
 
-        def test_subject_responds_to_update
-          assert_respond_to(@subject, :update)
+        def test_subject_responds_to_process
+          assert_respond_to(@subject, :process)
         end
       end
 
@@ -41,11 +41,11 @@ module ToyRobot
           @subject = FooInput.new
         end
 
-        def test_update
-          assert_equal ["PLACE", "1", "2", "SOUTH"], @subject.update
+        def test_process
+          assert_equal ["PLACE", "1", "2", "SOUTH"], @subject.process
         end
 
-        def test_update_loop
+        def test_process_loop
           expected_returned_inputs = [
             ["PLACE", "1", "2", "SOUTH"],
             ["MOVE"],
@@ -57,7 +57,7 @@ module ToyRobot
           returned_inputs = []
 
           loop do
-            returned_inputs << @subject.update
+            returned_inputs << @subject.process
             break if returned_inputs.last == ["EXIT"]
           end
 

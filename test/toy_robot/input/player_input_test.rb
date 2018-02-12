@@ -25,11 +25,11 @@ module ToyRobot
         $stdin = STDIN
       end
 
-      def test_update
-        assert_equal ["PLACE", "4", "2", "EAST"], @subject.update
+      def test_process
+        assert_equal ["PLACE", "4", "2", "EAST"], @subject.process
       end
 
-      def test_update_loop
+      def test_process_loop
         expected_returned_inputs = [
           ["PLACE", "4", "2", "EAST"],
           ["RIGHT"],
@@ -40,7 +40,7 @@ module ToyRobot
         returned_inputs = []
 
         loop do
-          returned_inputs << @subject.update
+          returned_inputs << @subject.process
           break if returned_inputs.last == ["EXIT"]
         end
 
