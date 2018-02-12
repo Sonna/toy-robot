@@ -5,6 +5,8 @@ module ToyRobot
     end
 
     def initialize(filename = nil)
+      @rendering = false
+
       @input =
         filename ? Input::FileInput.new(filename) : Input::PlayerInput.new
       @scene = table = Grid.new
@@ -16,8 +18,13 @@ module ToyRobot
     def run
       loop do
         command = player_controller.handle_input
+        render
         break if command == "EXIT"
       end
+    end
+
+    def render!
+      @rendering = true
     end
 
     private
@@ -26,5 +33,10 @@ module ToyRobot
     attr_reader :player_character
     attr_reader :player_controller
     attr_reader :scene
+
+    def render
+      puts scene.draw if @rendering
+      @rendering = false
+    end
   end
 end
