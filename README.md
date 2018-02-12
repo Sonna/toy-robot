@@ -82,6 +82,38 @@ Expected output
 
     3,3,NORTH
 
+### Example d
+
+    PLACE 0,0,NORTH
+    REPORT
+    DRAW
+
+
+Expected output
+
+    0,0,NORTH
+    .....
+    .....
+    .....
+    .....
+    R....
+
+### Example e
+
+    PLACE 0,0,NORTH
+    REPORT
+    PLACE_OBJECT
+    DRAW
+
+Expected output
+
+    0,0,NORTH
+    .....
+    .....
+    .....
+    O....
+    R....
+
 Deliverables
 ------------
 
@@ -140,9 +172,22 @@ Or execute the script with the path to file that will be used as input; e.g.
     "0,1,NORTH"
     "0,0,WEST"
     "3,3,NORTH"
-    "3,3,NORTH"
+    "0,0,NORTH"
+    .....
+    .....
+    .....
+    .....
+    R....
+    "0,0,NORTH"
+    .....
+    .....
+    .....
+    O....
+    R....
+    "0,0,NORTH"
     "1,2,SOUTH"
     "1,0,WEST"
+
 ```
 
 All given User inputs should match what was specified in the Toy Robot
@@ -176,11 +221,7 @@ After checking out the repo, run `bin/setup` to install dependencies. Then,
 run `rake test` to run the tests. You can also run `bin/console` for an
 interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To
-release a new version, update the version number in `version.rb`, and then run
-`bundle exec rake release`, which will create a git tag for the version, push
-git commits and tags, and push the `.gem` file to
-[rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
 
 Contributing
 ------------

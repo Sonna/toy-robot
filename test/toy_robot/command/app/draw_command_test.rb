@@ -29,7 +29,7 @@ module ToyRobot
 
       def test_execute_draw_command
         world = FooBarGrid.new("hello world")
-        entity = BarEntity.new(world)
+        BarEntity.new(world)
         scene = FooScene.new(world)
 
         subject = described_class.new(scene)
