@@ -39,8 +39,7 @@ module ToyRobot
     end
 
     def valid_move?(entity)
-      (min...max).cover?(entity.next_move.x) &&
-        (min...max).cover?(entity.next_move.y)
+      cells.key?(entity.next_position) && !cells[entity.next_position].occupied?
     end
   end
 end

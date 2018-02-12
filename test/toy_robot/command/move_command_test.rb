@@ -11,6 +11,10 @@ module ToyRobot
         assert_respond_to(@subject, :next_move)
       end
 
+      def test_subject_responds_to_next_position
+        assert_respond_to(@subject, :next_position)
+      end
+
       def test_subject_responds_to_position
         assert_respond_to(@subject, :position)
       end

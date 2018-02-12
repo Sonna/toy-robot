@@ -96,8 +96,7 @@ module ToyRobot
     end
 
     class DescribeValidMove < GridTest
-      BarEntity = Struct.new(:next_move)
-      FooPoint = Struct.new(:x, :y)
+      BarEntity = Struct.new(:next_position)
 
       def test_valid_move_inside_default_min_max
         entity = BarEntity.new(FooPoint.new(1, 2))

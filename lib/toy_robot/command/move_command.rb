@@ -11,13 +11,17 @@ module ToyRobot
         entity.transform.translate(Directions[facing])
       end
 
+      def match?(input)
+        input == "MOVE"
+      end
+
       def next_move
         new_transform = entity.transform.dup
         new_transform.translate(Directions[facing])
       end
 
-      def match?(input)
-        input == "MOVE"
+      def next_position
+        next_move.position
       end
 
       def position
