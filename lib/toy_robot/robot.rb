@@ -17,5 +17,9 @@ module ToyRobot
       @transform = Transform.new(ORIGIN, NORTH)
       @world = world
     end
+
+    def draw
+      "R"
+    end
   end
 end

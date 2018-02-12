@@ -26,6 +26,14 @@ module ToyRobot
       def test_subject_responds_to_position
         assert_respond_to(@subject, :position)
       end
+
+      def test_subject_responds_to_draw
+        assert_respond_to(@subject, :draw)
+      end
+
+      def test_subject_draw
+        assert_equal "R", @subject.draw
+      end
     end
 
     class DescribedRobotInitializedAttributes < RobotTest
