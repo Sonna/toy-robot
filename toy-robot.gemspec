@@ -6,8 +6,8 @@ require "toy_robot/version"
 Gem::Specification.new do |spec|
   spec.name          = "toy-robot"
   spec.version       = ToyRobot::VERSION
-  spec.authors       = ["Alex Sonneveld"]
-  spec.email         = ["Alex.Sonneveld@live.com.au"]
+  spec.authors       = ["Anonymous"]
+  spec.email         = ["no-name@example.com"]
 
   spec.summary       = "An implementation of the Toy Robot specification coding test"
   spec.description   = '
