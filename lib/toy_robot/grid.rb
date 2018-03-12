@@ -24,6 +24,10 @@ module ToyRobot
       @cells[vector2d].entity = entity
     end
 
+    def remove_entity(vector2d)
+      cells.key?(vector2d) && @cells[vector2d].entity = nil
+    end
+
     def draw
       cells.sort.each_with_object([]) do |(vector2d, cell), canvas|
         canvas << cell.draw

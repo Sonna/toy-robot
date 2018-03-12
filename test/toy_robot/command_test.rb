@@ -17,6 +17,10 @@ module ToyRobot
         @entities[vector2d] = entity if entity
       end
 
+      def remove_entity(vector2d)
+        @entities[vector2d] && @entities[vector2d] = nil
+      end
+
       def move(*_); end
 
       def valid_move?(entity)
