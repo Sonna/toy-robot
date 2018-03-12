@@ -12,6 +12,10 @@ module ToyRobot
         Hash[vector2d, entity] if entity
       end
 
+      def remove_entity(vector2d)
+        Hash[vector2d, nil]
+      end
+
       def move(*_); end
 
       # rubocop:disable Metrics/AbcSize
@@ -143,6 +147,10 @@ module ToyRobot
 
       def test_subject_responds_to_place_object
         assert @subject.handle("PLACE_OBJECT")
+      end
+
+      def test_subject_responds_to_remove_object
+        assert @subject.handle("REMOVE_OBJECT")
       end
 
       def test_subject_responds_to_report
@@ -289,6 +297,23 @@ module ToyRobot
           subject.handle("PLACE_OBJECT")
       end
 
+      def test_remove_object_after_place_object
+        world = BazGrid.new(0, 5)
+        input = BazInput.new
+        entity = BazEntity.new(world)
+        scene = BazScene.new(world)
+        subject = described_class.new(scene, input, entity)
+
+        obstacle_position = entity.transform.target
+        expected_obstacle_before =
+          obstacle_class.new(world, Transform.new(obstacle_position))
+
+        assert_equal Hash[obstacle_position, expected_obstacle_before],
+          subject.handle("PLACE_OBJECT")
+
+        assert_equal Hash[obstacle_position, nil],
+          subject.handle("REMOVE_OBJECT")
+      end
       # The initial brief describes:
       # > The application should discard all commands in the sequence until a
       # > valid PLACE command has been executed.

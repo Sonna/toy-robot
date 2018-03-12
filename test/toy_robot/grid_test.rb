@@ -26,6 +26,10 @@ module ToyRobot
         assert_respond_to(@subject, :add_entity)
       end
 
+      def test_subject_responds_to_remove_entity
+        assert_respond_to(@subject, :remove_entity)
+      end
+
       def test_subject_responds_to_cells
         assert_respond_to(@subject, :cells)
       end
@@ -187,6 +191,35 @@ module ToyRobot
         STRING
 
         assert_equal expected_drawn_grid, subject.draw
+      end
+
+      def test_subject_draw_after_removed_entities
+        subject = described_class.new
+
+        subject.add_entity(FooPoint.new(2, 0), FooDrawableEntity.new("A"))
+        subject.add_entity(FooPoint.new(1, 3), FooDrawableEntity.new("B"))
+        subject.add_entity(FooPoint.new(4, 4), FooDrawableEntity.new("C"))
+
+        expected_drawn_grid_before = <<-STRING.gsub(/^          /, "")
+          ....C
+          .B...
+          .....
+          .....
+          ..A..
+        STRING
+
+        assert_equal expected_drawn_grid_before, subject.draw
+
+        subject.remove_entity(FooPoint.new(4, 4))
+        expected_drawn_grid_after = <<-STRING.gsub(/^          /, "")
+          .....
+          .B...
+          .....
+          .....
+          ..A..
+        STRING
+
+        assert_equal expected_drawn_grid_after, subject.draw
       end
     end
 
