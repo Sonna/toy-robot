@@ -2,6 +2,7 @@ require "simplecov"
 
 SimpleCov.start do
   add_filter %r{^/test/}
+  add_filter %r{^/vendor/}
 end
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
