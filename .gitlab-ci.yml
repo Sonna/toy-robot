@@ -1,0 +1,27 @@
+# Official language image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/ruby/tags/
+image: "ruby:2.3"
+
+# Cache gems in between builds
+cache:
+  paths:
+    - vendor/ruby
+
+# This is a basic example for a gem or script which doesn't use
+# services such as redis or postgres
+before_script:
+  - ruby -v # Print out ruby version for debugging
+  # Bundler is not installed with the image
+  - gem install bundler  --no-ri --no-rdoc
+  # Install dependencies into ./vendor/ruby
+  - bundle install -j $(nproc) --path vendor
+
+# Optional - Delete if not using `rubocop`
+# rubocop:
+#   script:
+#   - rubocop
+
+test:
+  stage: test
+  script:
+    - bundle exec rake test
